@@ -2,7 +2,7 @@ import "./globals.css";
 import Link from "next/link";
 
 export const metadata = {
-  title: "CatCorp HR",
+  title: "CatCorp",
   description: "Cat Employee Management System"
 };
 
