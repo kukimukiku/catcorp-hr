@@ -18,13 +18,6 @@ export default async function Home() {
     <>
       {/* =====================================================
           EMPLOYEE OF THE DAY
-          
-          The component:
-          - loads today's selected employee
-          - displays the employee
-          - allows manual selection for demonstration
-          
-          The automatic Vercel Cron still works separately.
          ===================================================== */}
       <section className="hero">
         <EmployeeOfTheDay />
