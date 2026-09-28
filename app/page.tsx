@@ -7,7 +7,6 @@ import EmployeeOfTheDay from "@/components/EmployeeOfTheDay";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  // Get all currently active cat employees.
   const cats = await sql`
     SELECT *
     FROM cats
