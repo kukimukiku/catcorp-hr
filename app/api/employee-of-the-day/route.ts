@@ -2,10 +2,7 @@ import { sql } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
-/*
- * GET
- * Returns today's Employee of the Day.
- */
+// get employee of the day manually so no need to wait till 09:00
 export async function GET() {
   try {
     const result = await sql`
@@ -53,18 +50,8 @@ export async function GET() {
   }
 }
 
-/*
- * POST
- *
- * Manually selects a random active employee.
- * If an Employee of the Day already exists for today,
- * today's employee is replaced.
- */
 export async function POST() {
   try {
-    // --------------------------------------------------
-    // 1. Select a random active cat
-    // --------------------------------------------------
 
     const cats = await sql`
       SELECT id
@@ -87,13 +74,6 @@ export async function POST() {
 
     const catId = Number(cats[0].id);
 
-    // --------------------------------------------------
-    // 2. Save today's Employee of the Day
-    //
-    // selected_date is UNIQUE.
-    // If today's row already exists, replace cat_id.
-    // --------------------------------------------------
-
     await sql`
       INSERT INTO employee_of_day (
         cat_id,
@@ -107,10 +87,6 @@ export async function POST() {
       DO UPDATE SET
         cat_id = EXCLUDED.cat_id
     `;
-
-    // --------------------------------------------------
-    // 3. Return the selected employee
-    // --------------------------------------------------
 
     const result = await sql`
       SELECT

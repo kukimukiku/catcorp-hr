@@ -8,6 +8,7 @@ export async function POST(request: Request) {
     const form = await request.formData();
     const file = form.get("file");
 
+    // check file (no more than 4 MB, onlyy JPEG, PNG and WebP)
     if (!(file instanceof File)) {
       return Response.json({ error: "No file supplied." }, { status: 400 });
     }

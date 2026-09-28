@@ -14,6 +14,7 @@ export default function CatForm({ cat }: { cat?: Cat }) {
     cat ? String(cat.birth_date).slice(0, 10) : ""
   );
 
+  // check if date valid
   function isValidDate(value: string): boolean {
     const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
 
@@ -35,7 +36,7 @@ export default function CatForm({ cat }: { cat?: Cat }) {
       return false;
     }
 
-    // Birth date cannot be in the future.
+    // birth date cannot be in the future.
     const today = new Date();
     today.setHours(23, 59, 59, 999);
 
@@ -139,7 +140,7 @@ export default function CatForm({ cat }: { cat?: Cat }) {
 
       {/* NAME */}
       <label>
-        Name
+        Name (required)
         <input
           name="name"
           defaultValue={cat?.name}
@@ -151,7 +152,7 @@ export default function CatForm({ cat }: { cat?: Cat }) {
 
       {/* JOB TITLE */}
       <label>
-        Job title
+        Job title (required)
         <input
           name="jobTitle"
           defaultValue={cat?.job_title}
@@ -161,7 +162,7 @@ export default function CatForm({ cat }: { cat?: Cat }) {
 
       {/* EMAIL */}
       <label>
-        Email
+        Email (required)
         <input
           name="email"
           type="email"
@@ -172,7 +173,7 @@ export default function CatForm({ cat }: { cat?: Cat }) {
 
       {/* SALARY */}
       <label>
-        Salary (€)
+        Salary (€) (required)
         <input
           name="salary"
           type="number"
@@ -185,7 +186,7 @@ export default function CatForm({ cat }: { cat?: Cat }) {
 
       {/* BIRTH DATE */}
       <label>
-        Birth date
+        Birth date (required)
         <input
           name="birthDate"
           type="text"
@@ -207,7 +208,7 @@ export default function CatForm({ cat }: { cat?: Cat }) {
 
       {/* LIVES */}
       <label>
-        Lives remaining (0–9)
+        Lives remaining (0–9) (required)
         <input
           name="livesRemaining"
           type="number"

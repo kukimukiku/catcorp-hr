@@ -1,11 +1,13 @@
 import { sql } from "@/lib/db";
 import { catSchema } from "@/lib/validation";
 
+// list all active cats
 export async function GET() {
   const cats = await sql`SELECT * FROM cats WHERE active = TRUE ORDER BY id DESC`;
   return Response.json(cats);
 }
 
+// create new cat
 export async function POST(request: Request) {
   try {
     const parsed = catSchema.safeParse(await request.json());
@@ -17,6 +19,7 @@ export async function POST(request: Request) {
     }
 
     const c = parsed.data;
+    // check if email doesn't exist
     const rows = await sql`
       INSERT INTO cats
         (name, job_title, email, salary, birth_date, remote_worker, lives_remaining, photo_url)

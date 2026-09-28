@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 
+// background daily job to select employee of the day
 export async function GET(request: Request) {
   if (process.env.CRON_SECRET) {
     const auth = request.headers.get("authorization");

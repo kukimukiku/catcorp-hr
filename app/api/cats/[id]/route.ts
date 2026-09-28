@@ -5,7 +5,7 @@ function validId(raw: string) {
   const id = Number(raw);
   return Number.isInteger(id) && id > 0 ? id : null;
 }
-
+// GET one cat by id
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id: raw } = await params;
   const id = validId(raw);
@@ -16,6 +16,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
   return Response.json(rows[0]);
 }
 
+// update a cat
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id: raw } = await params;
   const id = validId(raw);
@@ -55,6 +56,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
+// delete/fire a cat
 export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id: raw } = await params;
   const id = validId(raw);
