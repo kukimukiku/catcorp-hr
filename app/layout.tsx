@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <header className="header">
-          <Link href="/" className="brand">🐾 CatCorp HR</Link>
+          <Link href="/" className="brand">CatCorp management system</Link>
           <span>Feline Employee Management System</span>
         </header>
         <main className="container">{children}</main>
