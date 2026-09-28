@@ -60,7 +60,6 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
   const id = validId(raw);
   if (!id) return Response.json({ error: "Invalid id." }, { status: 400 });
 
-  // Soft delete: preserves history while removing the cat from the employee list.
   const rows = await sql`
     UPDATE cats SET active = FALSE, updated_at = NOW()
     WHERE id = ${id}

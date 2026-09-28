@@ -6,7 +6,7 @@ export default function DeleteButton({ id }: { id: number }) {
   const router = useRouter();
 
   async function fireCat() {
-    if (!confirm("Fire this cat? HR has confirmed there is no severance tuna.")) return;
+    if (!confirm("Really, fire this cat?")) return;
     const response = await fetch(`/api/cats/${id}`, { method: "DELETE" });
     if (!response.ok) {
       alert("Could not fire the cat.");

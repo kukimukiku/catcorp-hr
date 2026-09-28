@@ -20,7 +20,7 @@ export default async function Home() {
     <>
       {winner && (
         <section className="hero">
-          <h2>🏆 Employee of the Day</h2>
+          <h2>Employee of the Day</h2>
           <strong>{winner.name}</strong> — {winner.job_title}
           <div className="muted">Selected on {String(winner.selected_date).slice(0, 10)}</div>
         </section>
@@ -39,12 +39,12 @@ export default async function Home() {
           <article className="card" key={cat.id}>
             {cat.photo_url
               ? <img className="cat-photo" src={cat.photo_url} alt={cat.name} />
-              : <div className="placeholder">🐱</div>}
+              : <div className="placeholder"></div>}
             <h2>{cat.name}</h2>
             <strong>{cat.job_title}</strong>
-            <p>💰 €{Number(cat.salary).toFixed(2)}</p>
-            <p>❤️ Lives remaining: {cat.lives_remaining}</p>
-            <p>🏠 Remote: {cat.remote_worker ? "Yes" : "No"}</p>
+            <p>€{Number(cat.salary).toFixed(2)}</p>
+            <p>Lives remaining: {cat.lives_remaining}</p>
+            <p>Remote: {cat.remote_worker ? "Yes" : "No"}</p>
             <div className="actions">
               <Link className="button secondary" href={`/cats/${cat.id}`}>View</Link>
               <Link className="button secondary" href={`/cats/${cat.id}/edit`}>Edit</Link>

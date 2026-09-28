@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "CatCorp HR",
-  description: "Feline Employee Management System"
+  description: "Cat Employee Management System"
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
