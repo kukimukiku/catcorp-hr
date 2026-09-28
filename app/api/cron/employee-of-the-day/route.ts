@@ -1,43 +1,113 @@
 import { sql } from "@/lib/db";
 
-export async function GET(request: Request) {
-  if (process.env.CRON_SECRET) {
-    const auth = request.headers.get("authorization");
-    if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 });
+export const dynamic = "force-dynamic";
+
+export async function GET() {
+  try {
+    const result = await sql`
+      SELECT
+        e.id AS selection_id,
+        e.selected_date,
+        c.id,
+        c.name,
+        c.job_title,
+        c.email,
+        c.salary,
+        c.birth_date,
+        c.remote_worker,
+        c.lives_remaining,
+        c.photo_url
+      FROM employee_of_day e
+      JOIN cats c ON c.id = e.cat_id
+      WHERE e.selected_date = CURRENT_DATE
+      LIMIT 1
+    `;
+
+    if (result.length === 0) {
+      return Response.json(null);
     }
+
+    return Response.json(result[0]);
+  } catch (error) {
+    console.error("EMPLOYEE OF DAY GET ERROR:", error);
+
+    return Response.json(
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : "Could not load Employee of the Day."
+      },
+      { status: 500 }
+    );
   }
+}
 
-  const existing = await sql`
-    SELECT e.selected_date, c.id, c.name
-    FROM employee_of_day e
-    JOIN cats c ON c.id = e.cat_id
-    WHERE e.selected_date = CURRENT_DATE
-  `;
-  if (existing[0]) {
-    return Response.json({ message: "Already selected today.", employee: existing[0] });
+export async function POST() {
+  try {
+    const cats = await sql`
+      SELECT id
+      FROM cats
+      WHERE active = TRUE
+      ORDER BY RANDOM()
+      LIMIT 1
+    `;
+
+    if (cats.length === 0) {
+      return Response.json(
+        {
+          error: "There are no active employees."
+        },
+        { status: 400 }
+      );
+    }
+
+    const catId = cats[0].id;
+    await sql`
+      INSERT INTO employee_of_day (
+        cat_id,
+        selected_date
+      )
+      VALUES (
+        ${catId},
+        CURRENT_DATE
+      )
+      ON CONFLICT (selected_date)
+      DO UPDATE SET
+        cat_id = EXCLUDED.cat_id
+    `;
+
+    const result = await sql`
+      SELECT
+        e.id AS selection_id,
+        e.selected_date,
+        c.id,
+        c.name,
+        c.job_title,
+        c.email,
+        c.salary,
+        c.birth_date,
+        c.remote_worker,
+        c.lives_remaining,
+        c.photo_url
+      FROM employee_of_day e
+      JOIN cats c ON c.id = e.cat_id
+      WHERE e.selected_date = CURRENT_DATE
+      LIMIT 1
+    `;
+
+    return Response.json(result[0]);
+  } catch (error) {
+    console.error("EMPLOYEE OF DAY POST ERROR:", error);
+
+    return Response.json(
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : "Could not select Employee of the Day."
+      },
+      { status: 500 }
+    );
   }
-
-  const cats = await sql`
-    SELECT id, name
-    FROM cats
-    WHERE active = TRUE
-    ORDER BY RANDOM()
-    LIMIT 1
-  `;
-  if (!cats[0]) {
-    return Response.json({ message: "No active cats available." });
-  }
-
-  const cat = cats[0] as { id: number; name: string };
-  await sql`
-    INSERT INTO employee_of_day (cat_id, selected_date)
-    VALUES (${cat.id}, CURRENT_DATE)
-    ON CONFLICT (selected_date) DO NOTHING
-  `;
-
-  return Response.json({
-    message: "Employee of the day selected.",
-    employee: cat
-  });
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { sql } from "@/lib/db";
 import { Cat, EmployeeOfDay } from "@/lib/types";
 import DeleteButton from "@/components/DeleteButton";
+import EmployeeOfTheDay from "@/components/EmployeeOfTheDay";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +22,7 @@ export default async function Home() {
       {winner && (
         <section className="hero">
           <h2>Employee of the Day</h2>
+          <EmployeeOfTheDay />
           <strong>{winner.name}</strong> — {winner.job_title}
           <div className="muted">Selected on {String(winner.selected_date).slice(0, 10)}</div>
         </section>
