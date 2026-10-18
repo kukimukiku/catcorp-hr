@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { sql } from "@/lib/db";
-import { Cat } from "@/lib/types";
+import { sql } from "../../../lib/db";
+import { Cat } from "../../../lib/types";
 
 export const dynamic = "force-dynamic";
 

@@ -1,4 +1,4 @@
-import CatForm from "@/components/CatForm";
+import CatForm from "../../../components/CatForm";
 
 export default function NewCatPage() {
   return <>

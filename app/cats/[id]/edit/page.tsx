@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { sql } from "@/lib/db";
-import { Cat } from "@/lib/types";
-import CatForm from "@/components/CatForm";
+import { sql } from "../../../../lib/db";
+import { Cat } from "../../../../lib/types";
+import CatForm from "../../../../components/CatForm";
 
 export const dynamic = "force-dynamic";
 

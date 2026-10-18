@@ -1,5 +1,5 @@
-import { sql } from "@/lib/db";
-import { catSchema } from "@/lib/validation";
+import { sql } from "../../../../lib/db";
+import { catSchema } from "../../../../lib/validation";
 
 function validId(raw: string) {
   const id = Number(raw);

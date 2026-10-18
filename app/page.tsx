@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { sql } from "@/lib/db";
-import { Cat } from "@/lib/types";
-import DeleteButton from "@/components/DeleteButton";
-import EmployeeOfTheDay from "@/components/EmployeeOfTheDay";
+import { sql } from "../lib/db";
+import { Cat } from "../lib/types";
+import DeleteButton from "../components/DeleteButton";
+import EmployeeOfTheDay from "../components/EmployeeOfTheDay";
 
 export const dynamic = "force-dynamic";
 
