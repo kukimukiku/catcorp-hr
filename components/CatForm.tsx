@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Cat } from "@/lib/types";
+import { Cat } from "../lib/types";
 
 export default function CatForm({ cat }: { cat?: Cat }) {
   const router = useRouter();
