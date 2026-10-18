@@ -13,7 +13,13 @@ export const catSchema = z.object({
   }, "Birth date must be a valid date and cannot be in the future."),
   remoteWorker: z.boolean(),
   livesRemaining: z.coerce.number().int("Lives must be an integer.").min(0).max(9),
-  photoUrl: z.string().url().nullable().optional()
+  photoUrl: z.union([
+    z.string().url(),
+    z.string().regex(
+      /^\/api\/photos\/cat-photos\/[a-f0-9-]+\.(jpg|png|webp)$/,
+      "Invalid photo URL."
+    )
+  ]).nullable().optional()
 });
 
 export type CatInput = z.infer<typeof catSchema>;
