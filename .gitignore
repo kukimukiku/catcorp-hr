@@ -7,3 +7,8 @@ node_modules/
 .vercel
 .env*
 tsconfig.tsbuildinfo
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
